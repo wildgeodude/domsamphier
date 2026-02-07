@@ -1,13 +1,6 @@
-<html>
-  <head>
-    <title>Contentful API Test</title>
-  </head>
-  <body>
-    <h1>Dom Samphier</h1>
-    <% entries.each do |entry| %>
-      <a href="/posts/<%= entry.id %>"><%= entry.title %></a>
-      <p><%= entry.excerpt %></p>
-      <p><em>By <%= entry.author.name %> on <%= entry.date %></em></p>
-    <% end %>
-  </body>
-</html>
+<h1>Dom Samphier</h1>
+<% entries.each do |entry| %>
+  <a href="/posts/<%= entry.id %>"><%= entry.title %></a>
+  <p><%= entry.excerpt %></p>
+  <p><em>By <%= entry.author.name %> on <%= entry.date %></em></p>
+<% end %>

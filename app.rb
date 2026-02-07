@@ -10,7 +10,7 @@ helpers Helpers::ContentfulHelpers
 
 get '/' do
   entries = client.entries(content_type: 'post')
-  erb :index, locals: { entries: entries }
+  erb :index, locals: { entries: entries }, layout: 'layouts/main'.to_sym
 end
 
 get '/posts/:id' do
