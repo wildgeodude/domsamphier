@@ -1,3 +1,29 @@
+<style>
+  /* Inline code - flows with text */
+  code {
+    background: #f4f4f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 0.9em;
+  }
+
+  /* Code blocks - preserve whitespace */
+  pre {
+    margin: 1.5em 0;
+    padding: 0;
+    background: none;
+  }
+
+  pre code {
+    display: block;
+    padding: 1em;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.5;
+    border-radius: 6px;
+  }
+</style>
 <div>
   <h1><%= title %></h1>
   <div><%= content %></div>
