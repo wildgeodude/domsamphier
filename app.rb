@@ -1,19 +1,21 @@
 require 'sinatra'
 require 'dotenv/load'
-
-set :host_authorization, permitted_hosts: ['.fly.dev', '.domsamphier.com', '0.0.0.0']
-
 require 'contentful'
 require 'json'
 require 'rich_text_renderer'
 
+require_relative './config/settings'
 require_relative './helpers/contentful_helpers'
 
 helpers Helpers::ContentfulHelpers
 
 get '/' do
   entries = client.entries(content_type: 'post')
-  erb :index, locals: { entries: entries }, layout: 'layouts/main'.to_sym
+  erb :index, locals: { entries: entries }
+end
+
+get '/about' do
+  erb :about
 end
 
 get '/posts/:id' do
