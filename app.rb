@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'dotenv/load'
+
+set :host_authorization, permitted_hosts: ['.fly.dev', '.domsamphier.com']
 require 'contentful'
 require 'json'
 require 'rich_text_renderer'
