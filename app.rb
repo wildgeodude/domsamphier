@@ -6,7 +6,28 @@ require 'rich_text_renderer'
 
 set :show_exceptions, false
 
-class PreCodeRenderer
+# NOTE(DS): Custom Renderer for 'code' node type
+#
+# This renderer parses the rich text document for 'code' nodes. For example it's looking for nodes like:
+# {
+#   "nodeType" => "paragraph",
+#   "data" => {},
+#   "content" => [
+#     {
+#       "nodeType" => "text",
+#       "value" => "Rails.application.credentials.dig(:facebook, :api_key)",
+#       "marks" => [{"type" => "code"}],
+#       "data" => {}
+#     }
+#   ]
+# }
+#
+# When it finds a 'code' mark like this, the renderer looks up 'code' in the mappings, and finds CustomCodeRenderer.
+# It then calls `render`, which checks if the text contains a newline; if it does it wraps in <pre><code>, otherwise just <code>.
+#
+# The `pre` tag preserves whitespace formatting, essential for rendering code blocks correctly.
+#
+class CustomCodeRenderer
   def initialize(mappings = {})
     @mappings = mappings
   end
@@ -31,7 +52,7 @@ helpers do
   end
 
   def rich_text_renderer
-    @rich_text_renderer ||= RichTextRenderer::Renderer.new('code' => PreCodeRenderer)
+    @rich_text_renderer ||= RichTextRenderer::Renderer.new('code' => CustomCodeRenderer)
   end
 end
 
