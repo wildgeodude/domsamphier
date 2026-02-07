@@ -24,8 +24,17 @@ get '/posts/:id' do
   entry = client.entry(params[:id])
   renderer = RichTextRenderer::Renderer.new
   content = renderer.render(entry.fields[:content])
-  erb :post, locals: { title: entry.fields[:title], content: content }
+
+  if request.accept?('text/html')
+    erb :post, locals: { title: entry.fields[:title], content: content }
+  elsif request.accept?('application/json')
+    content_type :json
+    { title: entry.fields[:title], content: content }.to_json
+  else
+    error 406
+  end
 end
+
 
 get '/posts' do
   entries = client.entries(content_type: 'post')
