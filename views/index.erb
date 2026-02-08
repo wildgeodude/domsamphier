@@ -1,5 +1,29 @@
+<style>
+  .post-meta-container {
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .tags-container {
+    display: flex;
+  }
+
+  .tags-container span + span::before {
+    content: ", ";
+  }
+</style>
+
 <h1>Dom Samphier</h1>
 <% entries.each do |entry| %>
   <a href="/posts/<%= entry.id %>"><%= entry.title %></a>
-  <p><em><%= Date.parse(entry.date).strftime("%B %d, %Y") %></em></p>
+  <div class='post-meta-container'>
+    <div><em><%= Date.parse(entry.date).strftime("%B %d, %Y") %></em></div>
+    <div>|</div>
+    <div class='tags-container'>
+      <% entry.tags.each_with_index do |tag, index| %>
+        <span><%= tag.name %></span>
+      <% end %>
+    </div>
+  </div>
 <% end %>

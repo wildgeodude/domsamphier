@@ -11,6 +11,7 @@ helpers Helpers::ContentfulHelpers
 
 get '/' do
   entries = client.entries(content_type: 'post')
+  p entries.first.fields.keys
   erb :index, locals: { entries: entries }
 end
 
