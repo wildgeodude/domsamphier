@@ -11,7 +11,7 @@ helpers Helpers::ContentfulHelpers
 
 get '/' do
   entries = client.entries(content_type: 'post')
-  erb :index, locals: { entries: entries }
+  erb :index, locals: { entries: entries.sort_by { |entry| Date.parse(entry.fields[:date]) }.reverse }
 end
 
 get '/about' do
@@ -37,7 +37,7 @@ get '/posts/tags/:id' do
     content_type: 'post',
     links_to_entry: params[:id]
   )
-  erb :'posts/tag', locals: { entries: entries }
+  erb :'posts/tag', locals: { entries: entries.sort_by { |entry| Date.parse(entry.fields[:date]) }.reverse }
 end
 
 # Contentful allows previewing entries in an iframe on their site.
