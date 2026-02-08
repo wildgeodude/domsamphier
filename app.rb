@@ -11,7 +11,6 @@ helpers Helpers::ContentfulHelpers
 
 get '/' do
   entries = client.entries(content_type: 'post')
-  p entries.first.fields.keys
   erb :index, locals: { entries: entries }
 end
 
@@ -31,6 +30,14 @@ get '/posts/:id' do
   else
     error 406
   end
+end
+
+get '/posts/tags/:id' do
+  entries = client.entries(
+    content_type: 'post',
+    links_to_entry: params[:id]
+  )
+  erb :'posts/tag', locals: { entries: entries }
 end
 
 # Contentful allows previewing entries in an iframe on their site.
